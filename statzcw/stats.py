@@ -1,7 +1,9 @@
 
 from typing import List
+import math
 
 
+# ./tt runs the test 
 def zcount(list: List[float]) -> float:
     return len(list)
 
@@ -38,15 +40,21 @@ def zvariance(list: List[float]) -> float:
      return variance
      
 def zstddev(list: List[float]) -> float:
-    return 0.0
+    return math.sqrt(zvariance(list))
+
 def zstderr(list: List[float]) -> float:
-    return 0.0
+    return zstddev(list) / math.sqrt(len(list))
 
 def zcov(a, b):
-    pass
+    sum = 0
+    if len(a) == len(b):
+        for i in range(zcount(a)):
+            sum += ((a[i] - zmean(a)) * (b[i] - zmean(b)))
+    cov = sum/(zcount(a)-1)
+    return cov
 
 def zcorr(listx: List[float], listy: List[float]) -> float:
-    return 0.0
+    return zcov(listx, listy) / (zstddev(listx) * zstderr(listy))
 
 
 def readDataSets(files):
